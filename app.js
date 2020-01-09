@@ -62,7 +62,19 @@ app.post('/blogs', (req, res) => {
             //redirect to index
             res.redirect('/blogs');
         }
-    })
+    });
+});
+
+//show route
+app.get('/blogs/:id', (req, res) => {
+    Blog.findById(req.params.id, (err, foundBlog) => {
+        if (err) {
+            console.log(err);
+            res.redirect('/blogs');
+        } else {
+            res.render("show", { blog: foundBlog });
+        }
+    });
 });
 
 app.listen(3000, () => {
